@@ -35,8 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
               itemBuilder: (context, index) {
                 final article = snapshot.data![index];
                 return ListTile(
-                  title: Text(article.source.name),
-                  subtitle: Text(article.description),
+                  subtitle: Text(article.content),
                 );
               },
             );
@@ -48,4 +47,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
