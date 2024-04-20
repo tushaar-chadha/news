@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news/screens/homepage.dart';
 import 'package:news/utils/constants.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
@@ -8,6 +9,12 @@ class mainPage extends StatefulWidget {
 }
 
 class _mainPageState extends State<mainPage> {
+  List<Widget> pagesToBeDisplayed = [
+    MyHomePage(),
+    Text(""),
+    Text(""),
+    Text("")
+  ];
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -42,6 +49,7 @@ class _mainPageState extends State<mainPage> {
           },
         ),
       ),
+      body: pagesToBeDisplayed[currentIndex],
     );
   }
 }

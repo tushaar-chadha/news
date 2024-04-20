@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news/screens/home.dart';
+import 'package:news/screens/mainPage.dart';
 import 'package:news/screens/homepage.dart';
 
 void main() {
@@ -16,9 +16,7 @@ class MyApp extends StatelessWidget {
       ensureScreenSize: true,
       minTextAdapt: true,
       splitScreenMode: true,
-
-      designSize: const Size(
-          360, 690), // Set design size according to OnePlus 7 Pro's resolution
+      designSize: const Size(360, 690),
       builder: (_, __) {
         return MaterialApp(
           title: 'Flutter Demo',
