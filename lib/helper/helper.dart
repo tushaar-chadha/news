@@ -7,7 +7,7 @@ class Helper {
   Future<List<Articles>?> getNewsData() async {
     var client = http.Client();
     var url = Uri.parse(
-        'https://newsapi.org/v2/top-headlines?country=us&apiKey=635711bea30e4a13a43e70cb79edce06');
+        'https://newsapi.org/v2/top-headlines?country=in&apiKey=635711bea30e4a13a43e70cb79edce06');
     var response = await client.get(url);
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
