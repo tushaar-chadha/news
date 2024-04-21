@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
+import 'package:news/helper/futures/FutureCarousel.dart';
+import 'package:news/helper/futures/FutureJustForYou.dart';
 import 'package:news/helper/helper.dart';
 import 'package:news/model/newsModel.dart';
 import 'package:news/utils/constants.dart';
@@ -171,160 +175,3 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class FutureNewsCarousel extends StatelessWidget {
-  const FutureNewsCarousel({
-    super.key,
-    required Future<List<Articles>?> newsData,
-  }) : _newsData = newsData;
-
-  final Future<List<Articles>?> _newsData;
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Articles>?>(
-      future: _newsData,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (snapshot.hasData) {
-          return PageView.builder(
-            physics: const BouncingScrollPhysics(
-                decelerationRate: ScrollDecelerationRate.fast),
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final article = snapshot.data![index];
-              if (article.title != "[Removed]") {
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 18.w),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        filterQuality: FilterQuality.high,
-                        fit: BoxFit.cover,
-                        image: NetworkImage(article.urlToImage)),
-                    borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                    // border: Border.all(width: 1.w),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 10.h, left: 8.w, right: 8.w),
-                        alignment: Alignment.bottomCenter,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(20.r)),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Colors.black45, AppColors.blackColor],
-                            )),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              article.title,
-                              style: montserratTextStyle(
-                                  AppColors.whiteColor, 12.sp, FontWeight.w900),
-                            ),
-                            Gap(2.h),
-                            Row(
-                              children: [
-                                Text(
-                                  article.source.name,
-                                  style: montserratTextStyle(
-                                      AppColors.whiteColor,
-                                      11.sp,
-                                      FontWeight.w600),
-                                ),
-                                Gap(5.w),
-                                Text(
-                                  DateFormat('EEEE, MMMM dd')
-                                      .format(article.publishedAt),
-                                  style: montserratTextStyle(
-                                      AppColors.whiteColor,
-                                      11.sp,
-                                      FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            },
-          );
-        } else {
-          return const Center(child: Text('No data available'));
-        }
-      },
-    );
-  }
-}
-
-class FutureJustForYou extends StatelessWidget {
-  const FutureJustForYou({
-    super.key,
-    required Future<List<Articles>?> newsData,
-  }) : _newsData = newsData;
-
-  final Future<List<Articles>?> _newsData;
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Articles>?>(
-      future: _newsData,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (snapshot.hasData) {
-          return ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(
-                decelerationRate: ScrollDecelerationRate.fast),
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final article = snapshot.data![index];
-              if (article.title != "[Removed]") {
-                return Container(
-                  margin: EdgeInsets.fromLTRB(0, 4.h, 0, 4.h),
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1.w),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [],
-                      ),
-                      Container(
-                        height: 80.h,
-                        width: 100.w,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20.r)),
-                            image: DecorationImage(
-                                image: NetworkImage(article.urlToImage),
-                                fit: BoxFit.cover)),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            },
-          );
-        } else {
-          return const Center(child: Text('No data available'));
-        }
-      },
-    );
-  }
-}
