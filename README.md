@@ -1,16 +1,17 @@
-# news
 
-A new Flutter project.
+<body>
 
-## Getting Started
+<h1>Bulettin News App</h1>
 
-This project is a starting point for a Flutter application.
+<p>Bulettin News App on GitHub, a dynamic project built with Flutter and leveraging the NewsAPI.org developer API! 🚀 Stay updated as I constantly enrich it with new features.</p>
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Gifs 
+| <img src="https://github.com/Tushar-chadha/news/tree/main/assets/gifs/homepage.gif" alt="HomePage.gif" width="150"> |
+|---|
+| HomePage | 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+
