@@ -18,12 +18,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Future<List<Articles>?> _newsData;
+  late Future<List<Articles>?> _newsData, _justForYou;
 
   @override
   void initState() {
     super.initState();
     _newsData = Helper().getNewsData();
+    _justForYou = Helper().getNewsJustForYou([
+      "Business",
+      "Entertainment",
+      "General",
+      "Health",
+      "Science",
+      "Sports",
+      "Technology"
+    ]);
   }
 
   int curIndex = 0;
@@ -117,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Gap(10.h),
-            FutureJustForYou(newsData: _newsData)
+            FutureJustForYou(newsData: _justForYou)
           ],
         ),
       ),
@@ -174,4 +183,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-

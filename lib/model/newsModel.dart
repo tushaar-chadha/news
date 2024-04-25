@@ -17,6 +17,7 @@ class Articles {
   final String urlToImage;
   final DateTime publishedAt;
   final String content;
+  final String category;
 
   Articles({
     required this.source,
@@ -27,17 +28,19 @@ class Articles {
     required this.urlToImage,
     required this.publishedAt,
     required this.content,
+    required this.category,
   });
 
   factory Articles.fromJson(Map<String, dynamic> json) => Articles(
         source: Source.fromJson(json["source"]),
-        author: json["author"]?? "",
-        title: json["title"]??"",
-        description: json["description"]??"",
-        url: json["url"]??"",
-        urlToImage: json["urlToImage"]??"",
+        author: json["author"] ?? "",
+        title: json["title"] ?? "",
+        description: json["description"] ?? "",
+        url: json["url"] ?? "",
+        urlToImage: json["urlToImage"] ?? "",
         publishedAt: DateTime.parse(json["publishedAt"]),
-        content: json["content"]??"",
+        content: json["content"] ?? "",
+        category: json["category"] ?? "",
       );
 }
 
@@ -49,7 +52,7 @@ class Source {
   });
 
   factory Source.fromJson(Map<String, dynamic> json) => Source(
-        name: json["name"]??"",
+        name: json["name"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

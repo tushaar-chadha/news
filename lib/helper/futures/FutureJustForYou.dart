@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,25 +20,114 @@ class FutureJustForYou extends StatelessWidget {
       future: _newsData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(
+                decelerationRate: ScrollDecelerationRate.fast),
+            itemCount: 20,
+            itemBuilder: (context, index) {
+              return Container(
+                alignment: Alignment.topCenter,
+                margin: EdgeInsets.fromLTRB(0, 6.h, 0, 6.h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(22.r)),
+                ),
+                child: Flex(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  direction: Axis.horizontal,
+                  children: [
+                    Flexible(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Flex(
+                          direction: Axis.vertical,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 20.h,
+                              width: double.maxFinite.w,
+                              color: AppColors.secondaryBackgroundColor,
+                            ),
+                            Gap(2.h),
+                            Container(
+                              height: 10.h,
+                              width: double.maxFinite.w,
+                              color: AppColors.secondaryBackgroundColor,
+                            ),
+                            Gap(2.h),
+                            Container(
+                              height: 10.h,
+                              width: double.maxFinite.w,
+                              color: AppColors.secondaryBackgroundColor,
+                            ),
+                            Gap(2.h),
+                            Container(
+                              height: 10.h,
+                              width: 60.w,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 6.w, vertical: 2.h),
+                              decoration: BoxDecoration(
+                                color: AppColors.secondaryBackgroundColor,
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                        height: 100.h,
+                        width: 110.w,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 0.3,
+                                color: AppColors.secondaryBackgroundColor),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(22.r))),
+                        child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(22.r)),
+                            child: Container(
+                              color: AppColors.secondaryBackgroundColor,
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(
+              child: Text(
+            'No News For Now!',
+            style: montserratTextStyle(
+                AppColors.blackColor, 20.sp, FontWeight.normal),
+          ));
         } else if (snapshot.hasData) {
           return ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(
                 decelerationRate: ScrollDecelerationRate.fast),
-            itemCount: snapshot.data!.length,
+            itemCount: 20,
             itemBuilder: (context, index) {
               final article = snapshot.data![index];
               if (article.title != "[Removed]") {
                 return Container(
                   alignment: Alignment.topCenter,
                   margin: EdgeInsets.fromLTRB(0, 6.h, 0, 6.h),
-                  decoration: BoxDecoration( borderRadius:
-                                  BorderRadius.all(Radius.circular(22.r)),
-                    border: Border.all(width: 0.2.w,color: AppColors.secondaryBackgroundColor),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(22.r)),
+                    border: Border.all(
+                        width: 0.2.w,
+                        color: AppColors.secondaryBackgroundColor),
                   ),
                   child: Flex(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,25 +151,37 @@ class FutureJustForYou extends StatelessWidget {
                                     13.sp, FontWeight.w800),
                               ),
                               Gap(2.h),
-                              Row(
-                                children: [
-                                  Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    "Source: ${article.source.name}",
-                                    style: montserratTextStyle(
-                                        AppColors.greyColor,
-                                        12.sp,
-                                        FontWeight.w500),
-                                  ),
-                                ],
+                              Text(
+                                "Source: ${article.source.name}",
+                                overflow: TextOverflow.ellipsis,
+                                style: montserratTextStyle(AppColors.greyColor,
+                                    12.sp, FontWeight.w500),
                               ),
+                              Gap(1.h),
                               Text(
                                 "Published On ${DateFormat('EEEE, MMMM dd').format(article.publishedAt)}",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: montserratTextStyle(AppColors.greyColor,
                                     11.sp, FontWeight.w400),
+                              ),
+                              Gap(2.h),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 6.w, vertical: 2.h),
+                                decoration: BoxDecoration(
+                                  color: AppColors.greyColor,
+                                  borderRadius: BorderRadius.circular(20.r),
+                                ),
+                                child: Text(
+                                  article.category,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  style: montserratTextStyle(
+                                      AppColors.whiteColor,
+                                      10.sp,
+                                      FontWeight.w400),
+                                ),
                               ),
                             ],
                           ),
